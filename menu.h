@@ -8,5 +8,5 @@ public:
     Menu();
     void display_menu();
     void select_level();
-    void restart(); // reset all values on dashboard and maze - recreate object for maze and dashboard
+    bool restart(); // reset all values on dashboard and maze - recreate object for maze and player
 };
