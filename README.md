@@ -14,11 +14,13 @@ Objects:
         size
             depends on level
             
-        randomly generate x and y coordinates based on size and initialize array of points for each:
-            array of coins
-            array of bomb
+        randomly generate x and y coordinates based on size and initialize points for each:
+        will create a class for list of objects, coins and bombs will be implemented through that
+        list will have x, y coordinates, char object and next pointer
+            list of coins 
+            list of bombs 
             door 
-            key
+            key 
 
         list of Blocks
             once all objects set, create maze 

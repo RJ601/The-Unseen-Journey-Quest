@@ -5,18 +5,18 @@ Block::Block()
     x_coordinate = 0;
     y_coordinate = 0;
     up = down = left = right = NULL;
-    object = '\0';
     size = 10;
+    character = '-';
 }
-Block::Block(float x, float y, char obj = '\0', Block *u = NULL, Block *d = NULL, Block *l = NULL, Block *r = NULL)
+Block::Block(int x, int y, Block *u = NULL, Block *d = NULL, Block *l = NULL, Block *r = NULL, char obj = '-')
 {
     x_coordinate = x;
     y_coordinate = y;
+    character = obj;
     up = u;
     down = d;
     left = l;
     right = r;
-    object = obj;
     size = 10;
 }
 
@@ -40,6 +40,10 @@ void Block::set_size(int s)
 {
     size = s;
 }
+void Block::set_char(char obj)
+{
+    character = obj;
+}
 
 Block* Block::get_up() const
 {
@@ -61,25 +65,12 @@ int Block::get_size() const
 {
     return size;
 }
+char Block::get_char() const
+{
+    return character;
+}
 
 void Block::display_block()
 {
-    for (int count = 0; count < size/2; count++)
-    {
-        cout<<' ';
-    }
-
-    if ((object == 'd') || (object == 'k'))
-    {
-        cout<<"-";
-    }
-    else
-    {
-        cout<<object;
-    }
-
-    for (int count = 0; count < size/2; count++)
-    {
-        cout<<' ';
-    }
+    mvprintw(x_coordinate, y_coordinate, "%c", character);
 }

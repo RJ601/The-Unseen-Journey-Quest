@@ -1,4 +1,5 @@
 #include <iostream>
+#include <curses.h>
 
 class Menu // options to restart, resume, select level
 {

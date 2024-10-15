@@ -1,8 +1,10 @@
 #include <iostream>
+#include <curses.h>
+#include "point.h"
 
 using namespace std;
 
-class Dashboard
+class Dashboard: public Point
 {
     int moves; //calculated according to distance and level
     int score; // calculated according to collected coins and remaining moves
@@ -10,10 +12,10 @@ class Dashboard
     int distance;
     int undoes;
     char mode; // difficulty level
-    string sensing;
+    int sensing;
 
 public: 
-    Dashboard(int d, char m = 'E'); 
+    Dashboard(int d, int x, int y, char m = 'E'); 
 
     int get_moves() const;
     int get_score() const;

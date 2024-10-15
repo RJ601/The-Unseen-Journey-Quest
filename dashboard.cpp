@@ -1,15 +1,17 @@
 #include "dashboard.h"
 #include "point.h"
-#include <iomanip>
 
 using namespace std;
 
-Dashboard::Dashboard(int d, char m = 'E')
+Dashboard::Dashboard(int d, int x = 0, int y = 0, char m = 'E')
 {
     mode = m;
     score = 0;
     key = false;
     distance = d;
+    sensing = -1;
+    x_coordinate = x;
+    y_coordinate = y;
 
     if (mode == 'E')
     {
@@ -77,11 +79,11 @@ void Dashboard::set_sense(int d)
 {
     // compare to previous distance for sensing
     if (distance > d)
-        sensing = "Getting Closer";
+        sensing = 1; // getting closer
     else if (distance < d)
-        sensing = "Further Away";
+        sensing = 0; // further away
     else
-        sensing = "";
+        sensing = -1; // neither
 
     // update distance
     distance = d; 
@@ -89,17 +91,34 @@ void Dashboard::set_sense(int d)
 
 void Dashboard::display() const
 {
-    int entry_gap = 7;
+    int entry_gap = 5;
+    int variable_gap = 30;
+    int y_gap = 10;
 
-    cout<<"Mode:"<<setw(entry_gap)<<mode<<endl;
-    cout<<"Remaining Moves:"<<setw(entry_gap)<<moves<<setw(40)<<"Remaining Undoes:"<<setw(entry_gap)<<undoes<<endl;
-    cout<<"Score:"<<setw(entry_gap)<<score<<setw(35)<<"Key Status:";
+    mvprintw(x_coordinate, y_coordinate, "Mode:");
+    mvprintw(x_coordinate + entry_gap, y_coordinate, "%c", mode);
 
+    mvprintw(x_coordinate, y_coordinate + y_gap, "Remaining Moves:");
+    mvprintw(x_coordinate + entry_gap, y_coordinate + y_gap, "%i", moves);
+    mvprintw(x_coordinate + entry_gap + variable_gap, y_coordinate + y_gap, "Remaining Undoes:");
+    mvprintw(x_coordinate + entry_gap + variable_gap + entry_gap, y_coordinate + y_gap, "%i", undoes);
+
+    mvprintw(x_coordinate, y_coordinate + y_gap*2, "Score:");
+    mvprintw(x_coordinate + entry_gap, y_coordinate + y_gap*2, "%i", score);
+    mvprintw(x_coordinate + entry_gap + variable_gap, y_coordinate + y_gap*2, "Key Status:");
     if (key)
-        cout<<setw(entry_gap)<<"Found"<<endl;
+        mvprintw(x_coordinate + entry_gap + variable_gap + entry_gap, y_coordinate + y_gap*2, "Found");
     else
-        cout<<setw(entry_gap)<<"Not Found"<<endl;
+        mvprintw(x_coordinate + entry_gap + variable_gap + entry_gap, y_coordinate + y_gap*2, "Not Found");
 
-    cout<<"Hint:"<<setw(6 + sensing.length())<<sensing<<endl;
-    cout<<setfill('-')<<setw(70)<<endl;
+    mvprintw(x_coordinate, y_coordinate + y_gap*3, "Hint:");
+    switch (sensing)
+    {
+        case 0:
+            mvprintw(x_coordinate + entry_gap, y_coordinate + y_gap*3, "Further Away");
+            break;
+        case 1:
+            mvprintw(x_coordinate + entry_gap, y_coordinate + y_gap*3, "Getting Closer");
+            break;
+    }
 }

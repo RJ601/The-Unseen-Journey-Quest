@@ -11,7 +11,7 @@ class Player: public Point
 
 public:
     Player();
-    Player(float x, float y);
+    Player(int x, int y);
     void calculate_distance(); // called after every valid move, would update moves too, and sensing - distnace bw player and key
     void move_up();
     void move_down();
