@@ -1,5 +1,4 @@
 #include "dashboard.h"
-#include "point.h"
 
 using namespace std;
 

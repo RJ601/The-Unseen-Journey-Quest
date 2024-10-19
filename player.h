@@ -1,25 +1,40 @@
-#include <iostream>
+#ifndef PLAYER_H
+#define PLAYER_H
+
 #include "dashboard.h"
-#include "point.h"
+#include "maze.h"
+#include "stack.h"
 
 // player moves, interacts with objects, has dashboard object (composition)
 
 class Player: public Point
 {
     int distance;
-    Dashboard db;
+    Dashboard *db; // composition
+    Maze *maze; // aggregation b/w player and maze = maze has address for list of coins, bomb, key and door 
+    Block *block; // address of the block the player is cureently on - we get this through maze
+    Objects *coins; // address to head of list of coins taken
+    Stack *moves; // stack of moves
+
+    // to check if player won or lost
+    bool win;
+    bool lose;
 
 public:
-    Player();
-    Player(int x, int y);
-    void calculate_distance(); // called after every valid move, would update moves too, and sensing - distnace bw player and key
+    Player(Maze *m, char mode);
+    int calculate_distance(Point key); // called after every valid move, would update moves too, and sensing - distnace bw player and key
+    bool get_win() const;
+    bool get_lose() const;
     void move_up();
     void move_down();
     void move_left();
     void move_right();
+    bool undo_move();
     void take_coin(); // increase score
-    void take_key(); // update key status 
-    void reset(); // when player touches bomb
     void calculate_score(); // through display - when player wins, calculate final score
+    void display_dashboard();
     void display(); // when player wins
+    void change_block(Block* next); // returns true if player alive after changing position
 };
+
+#endif

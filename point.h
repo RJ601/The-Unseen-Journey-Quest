@@ -1,4 +1,5 @@
-#include <iostream>
+#ifndef POINT_H
+#define POINT_H
 
 class Point
 {
@@ -14,3 +15,5 @@ public:
     int get_x() const;
     int get_y() const;
 };
+
+#endif

@@ -1,4 +1,6 @@
-#include <iostream>
+#ifndef BLOCK_H
+#define BLOCK_H
+
 #include "point.h"
 #include <curses.h>
 
@@ -17,7 +19,7 @@ class Block: public Point
 
 public:
     Block();
-    Block(int x, int y, Block *u = NULL, Block *d = NULL, Block *l = NULL, Block *r = NULL, char obj = '-');
+    Block(int x, int y, char obj = '-', Block *u = NULL, Block *d = NULL, Block *l = NULL, Block *r = NULL);
 
     void set_up(Block *u);
     void set_down(Block *d);
@@ -37,3 +39,4 @@ public:
 };
 
 
+#endif

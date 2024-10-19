@@ -1,3 +1,6 @@
+#ifndef DASHBOARD_H
+#define DASHBOARD_H
+
 #include <iostream>
 #include <curses.h>
 #include "point.h"
@@ -15,6 +18,7 @@ class Dashboard: public Point
     int sensing;
 
 public: 
+    Dashboard();
     Dashboard(int d, int x, int y, char m = 'E'); 
 
     int get_moves() const;
@@ -32,3 +36,5 @@ public:
 
     void display() const;
 };
+
+#endif

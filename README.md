@@ -21,6 +21,7 @@ Objects:
             list of bombs 
             door 
             key 
+        coins, bombs, key and door will be composed in maze
 
         list of Blocks
             once all objects set, create maze 

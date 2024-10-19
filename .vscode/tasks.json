@@ -8,7 +8,7 @@
             "args": [
                 "-o",
                 "game", 
-                "C:/Users/Hp/Documents/Javeria/Studies/DS_Lab/Assignment_2/The-Unseen-Journey-Quest/main.cpp", 
+                "C:/Users/Hp/Documents/Javeria/Studies/DS_Lab/Assignment_2/The-Unseen-Journey-Quest/main.cpp", "C:/Users/Hp/Documents/Javeria/Studies/DS_Lab/Assignment_2/The-Unseen-Journey-Quest/maze.cpp", "C:/Users/Hp/Documents/Javeria/Studies/DS_Lab/Assignment_2/The-Unseen-Journey-Quest/player.cpp", "C:/Users/Hp/Documents/Javeria/Studies/DS_Lab/Assignment_2/The-Unseen-Journey-Quest/dashboard.cpp", "C:/Users/Hp/Documents/Javeria/Studies/DS_Lab/Assignment_2/The-Unseen-Journey-Quest/block.cpp", "C:/Users/Hp/Documents/Javeria/Studies/DS_Lab/Assignment_2/The-Unseen-Journey-Quest/menu.cpp", "C:/Users/Hp/Documents/Javeria/Studies/DS_Lab/Assignment_2/The-Unseen-Journey-Quest/objects.cpp", "C:/Users/Hp/Documents/Javeria/Studies/DS_Lab/Assignment_2/The-Unseen-Journey-Quest/point.cpp",
                 "-IC:/Users/Hp/Documents/Javeria/Studies/DS_Lab/Assignment_2/PDCurses-master", 
                 "-LC:/Users/Hp/Documents/Javeria/Studies/DS_Lab/Assignment_2/PDCurses-master/wincon", 
                 "-lpdcurses" 

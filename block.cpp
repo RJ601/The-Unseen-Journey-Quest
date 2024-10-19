@@ -72,5 +72,9 @@ char Block::get_char() const
 
 void Block::display_block()
 {
-    mvprintw(x_coordinate, y_coordinate, "%c", character);
+    // if door or key, keep it hidden
+    if ((character == 'K') || (character == 'D'))
+        mvprintw(x_coordinate, y_coordinate, "%c", '-');
+    else
+        mvprintw(x_coordinate, y_coordinate, "%c", character);
 }
