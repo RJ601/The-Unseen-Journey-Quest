@@ -22,6 +22,8 @@ class Maze
 public:
     Maze(char m);
 
+    ~Maze(); // deallocate memory for blocks
+
     void set_head(Block *b);
     void set_coins(Objects *c);
     void set_bombs(Objects *b);

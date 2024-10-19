@@ -7,11 +7,11 @@
 class Menu // options to restart, resume, select level
 {
     char mode;
-    int choice;
+    char choice;
 public:
     Menu();
     void display();
-    int select_level();
+    char select_level();
 };
 
 #endif

@@ -4,24 +4,32 @@
 #include "dashboard.h"
 #include "block.h"
 
-// implemented through list - LIFO
+// Stack (LIFO) for undoes - implemented through singly linked list 
 class Stack
 {
     class Node
     {
+    public:
         // each node in the list has player's dashboard and player's block at that state 
         Dashboard *db;
-        Block block;
+        Block *block;
+        Node* next;
+        Node *prev;
     };
 
     // head would point at last move made
     Node *head;
+    Node *tail;
 
     // limited capacity - as limited undoes
     int capacity;
 
+    // number of items currently in stack
+    int size;
+
 public:
-    Stack();
+    Stack(int c);
+    ~Stack();
 
     // push, pop
     void push(Dashboard *d, Block *b);

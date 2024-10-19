@@ -12,10 +12,12 @@ Player::Player(Maze *m, char mode)
 
     win = lose = false;
 
-    int distance = calculate_distance(maze->get_key());
+    int distance = calculate_distance(*(maze->get_key()));
     *db = Dashboard(distance, 0, 0, mode);
 
-    moves->set_capacity(db->get_undoes());
+    *moves = Stack(db->get_undoes());
+
+    // push initial position/state
     moves->push(db, block);
 }
 

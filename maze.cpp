@@ -102,6 +102,25 @@ Maze::Maze(char m)
     }
 }
 
+Maze::~Maze()
+{
+    if (head != NULL)
+    {
+        Block *first = head->get_down(); // first block of next row
+
+        for (Block* ptr = head; ptr != NULL; ptr = head)
+        {
+            if (head->get_right() != NULL)
+                head = head->get_right();
+            else
+                head = first;
+                first = head->get_down();
+
+            delete ptr;
+        }
+    }
+}
+
 void Maze::set_head(Block *b) 
 {
     head = b;

@@ -46,7 +46,11 @@ int main()
             *player = Player(maze, mode);
             break;
         case '3':
-            mode = menu.select_level();  
+            mode = menu.select_level(); 
+            if (mode == 'I')
+            {
+                return 0;
+            } 
             *maze = Maze(mode);
             *player = Player(maze, mode);
             break;
