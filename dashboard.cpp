@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Dashboard::Dashboard(int d, int x = 0, int y = 0, char m = 'E')
+Dashboard::Dashboard(int d, int x, int y, char m)
 {
     mode = m;
     score = 0;
@@ -90,34 +90,34 @@ void Dashboard::set_sense(int d)
 
 void Dashboard::display() const
 {
-    int entry_gap = 5;
+    int entry_gap = 20;
     int variable_gap = 30;
-    int y_gap = 10;
+    int y_gap = 2;
 
-    mvprintw(x_coordinate, y_coordinate, "Mode:");
-    mvprintw(x_coordinate + entry_gap, y_coordinate, "%c", mode);
+    mvprintw(y_coordinate, x_coordinate, "Mode:");
+    mvprintw(y_coordinate, x_coordinate + entry_gap, "%c", mode);
 
-    mvprintw(x_coordinate, y_coordinate + y_gap, "Remaining Moves:");
-    mvprintw(x_coordinate + entry_gap, y_coordinate + y_gap, "%i", moves);
-    mvprintw(x_coordinate + entry_gap + variable_gap, y_coordinate + y_gap, "Remaining Undoes:");
-    mvprintw(x_coordinate + entry_gap + variable_gap + entry_gap, y_coordinate + y_gap, "%i", undoes);
+    mvprintw(y_coordinate + y_gap, x_coordinate, "Remaining Moves:");
+    mvprintw(y_coordinate + y_gap, x_coordinate + entry_gap, "%i", moves);
+    mvprintw(y_coordinate + y_gap, x_coordinate + entry_gap + variable_gap, "Remaining Undoes:");
+    mvprintw(y_coordinate + y_gap, x_coordinate + entry_gap + variable_gap + entry_gap, "%i", undoes);
 
-    mvprintw(x_coordinate, y_coordinate + y_gap*2, "Score:");
-    mvprintw(x_coordinate + entry_gap, y_coordinate + y_gap*2, "%i", score);
-    mvprintw(x_coordinate + entry_gap + variable_gap, y_coordinate + y_gap*2, "Key Status:");
+    mvprintw(y_coordinate + y_gap*2, x_coordinate, "Score:");
+    mvprintw(y_coordinate + y_gap*2, x_coordinate + entry_gap, "%i", score);
+    mvprintw(y_coordinate + y_gap*2, x_coordinate + entry_gap + variable_gap, "Key Status:");
     if (key)
-        mvprintw(x_coordinate + entry_gap + variable_gap + entry_gap, y_coordinate + y_gap*2, "Found");
+        mvprintw(y_coordinate + y_gap*2, x_coordinate + entry_gap + variable_gap + entry_gap, "Found");
     else
-        mvprintw(x_coordinate + entry_gap + variable_gap + entry_gap, y_coordinate + y_gap*2, "Not Found");
+        mvprintw(y_coordinate + y_gap*2, x_coordinate + entry_gap + variable_gap + entry_gap, "Not Found");
 
-    mvprintw(x_coordinate, y_coordinate + y_gap*3, "Hint:");
+    mvprintw(y_coordinate + y_gap*3, x_coordinate, "Hint:");
     switch (sensing)
     {
         case 0:
-            mvprintw(x_coordinate + entry_gap, y_coordinate + y_gap*3, "Further Away");
+            mvprintw(y_coordinate + y_gap*3, x_coordinate + entry_gap, "Further Away");
             break;
         case 1:
-            mvprintw(x_coordinate + entry_gap, y_coordinate + y_gap*3, "Getting Closer");
+            mvprintw(y_coordinate + y_gap*3, x_coordinate + entry_gap, "Getting Closer");
             break;
     }
 }

@@ -10,16 +10,35 @@ int main()
 {
     // Initialize the curses screen
     initscr();            // Start curses mode
+
+
     start_color();        // Start color functionality
     init_pair(1, COLOR_CYAN, COLOR_BLACK); // Define a color pair
     init_pair(2, COLOR_YELLOW, COLOR_BLACK);
 
     // initialize maze and player
     char mode = 'E';
-    Maze *maze;
-    *maze = Maze(mode);
-    Player *player;
-    *player = Player(maze, mode);
+
+    // testing
+    clear();
+    mvprintw(0,0, "Start");
+    refresh();
+    getch();
+
+    Maze *maze = new Maze(mode);
+    // testing
+    clear();
+    mvprintw(0,0, "Maze created");
+    refresh();
+    getch();
+    Player *player = new Player(maze, mode);
+
+    // testing
+    clear();
+    mvprintw(0,0, "Objects created");
+    refresh();
+    getch();
+
 
     bool lose = false, win = false;
 
@@ -31,9 +50,6 @@ int main()
     // display the menu 
     menu.display();
 
-    // Refresh the screen to show changes
-    refresh();
-
     // take user input and update 
     char choice = getch();
 
@@ -42,8 +58,10 @@ int main()
         case '1':
             break;
         case '2':
-            *maze = Maze(mode);
-            *player = Player(maze, mode);
+            delete maze;
+            delete player;
+            maze = new Maze(mode);
+            player = new Player(maze, mode);
             break;
         case '3':
             mode = menu.select_level(); 
@@ -51,13 +69,18 @@ int main()
             {
                 return 0;
             } 
-            *maze = Maze(mode);
-            *player = Player(maze, mode);
+            delete maze;
+            delete player;
+            maze = new Maze(mode);
+            player = new Player(maze, mode);
             break;
         default:
             clear();
             mvprintw(0, 0, "Invalid Input!");
             refresh();
+            getch();
+            delete maze;
+            delete player;
             return 0;
     }
 
@@ -66,9 +89,17 @@ int main()
         // Clear the screen
         clear();
 
-        // once resume or restart selected from menu, create dashboard and maze
+        // once resume or restart selected from menu, display maze
+        mvprintw(0, 0, "Maze Printing...");
+        refresh();
+        getch();
+        clear();
 
-        // if restarted, reset maze and player
+        player->display_dashboard();
+
+        maze->display();
+        refresh();
+        getch();
 
         // Refresh the screen to show changes
         refresh();
@@ -84,6 +115,8 @@ int main()
     getch(); // Wait for user to press any key
 
     // End curses mode
+    delete player;
+    delete maze;
     endwin();
     return 0;
 }

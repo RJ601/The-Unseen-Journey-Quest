@@ -2,13 +2,15 @@
 #define OBJECTS_H
 
 #include "point.h"
+#include <iostream>
 #include <curses.h>
 
+using namespace std;
 
-// for coins and bombs
+
+// for coins and bombs - singly linked list
 class Objects
 {
-public:
     class Node: public Point
     {
     public:
@@ -18,6 +20,7 @@ public:
 
     Node *head;
 
+public:
     Objects();
     ~ Objects();
     

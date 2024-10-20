@@ -13,7 +13,7 @@ class Player: public Point
     Dashboard *db; // composition
     Maze *maze; // aggregation b/w player and maze = maze has address for list of coins, bomb, key and door 
     Block *block; // address of the block the player is cureently on - we get this through maze
-    Objects *coins; // address to head of list of coins taken
+    Objects *coins; // list of coins taken
     Stack *moves; // stack of moves
 
     // to check if player won or lost
@@ -22,6 +22,7 @@ class Player: public Point
 
 public:
     Player(Maze *m, char mode);
+    ~Player();
     int calculate_distance(Point key); // called after every valid move, would update moves too, and sensing - distnace bw player and key
     bool get_win() const;
     bool get_lose() const;

@@ -58,13 +58,21 @@ void Stack::push(Dashboard *d, Block *b)
     size++;
 }
 
-void Stack::pop()
+bool Stack::pop()
 {
+    // check if stack empty
+    if (size == 0)
+    {
+        return false;
+    }
+
     // remove the last added node/move
     Node *temp = head;
     head = head->next;
     head->prev = NULL;
     delete temp;
+    size--;
+    return true;
 }
 
 void Stack::set_capacity(int c)

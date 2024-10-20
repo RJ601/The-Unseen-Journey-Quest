@@ -18,7 +18,6 @@ class Dashboard: public Point
     int sensing;
 
 public: 
-    Dashboard();
     Dashboard(int d, int x, int y, char m = 'E'); 
 
     int get_moves() const;

@@ -4,7 +4,7 @@
 #include "dashboard.h"
 #include "block.h"
 
-// Stack (LIFO) for undoes - implemented through singly linked list 
+// Stack (LIFO) for undoes - implemented through doubly linked list 
 class Stack
 {
     class Node
@@ -33,7 +33,7 @@ public:
 
     // push, pop
     void push(Dashboard *d, Block *b);
-    void pop();
+    bool pop();
 
     void set_capacity(int c);
 

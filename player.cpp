@@ -13,12 +13,18 @@ Player::Player(Maze *m, char mode)
     win = lose = false;
 
     int distance = calculate_distance(*(maze->get_key()));
-    *db = Dashboard(distance, 0, 0, mode);
+    db = new Dashboard(distance, 0, 0, mode);
 
-    *moves = Stack(db->get_undoes());
+    moves = new Stack(db->get_undoes());
 
     // push initial position/state
     moves->push(db, block);
+}
+
+Player::~Player()
+{
+    delete db;
+    delete moves;
 }
 
 bool Player::get_win() const
@@ -82,9 +88,14 @@ void Player::move_right()
 bool Player::undo_move()
 {
     // through pop, update block of player and update the dashboard
-    moves->pop();
-    db = moves->get_db();
-    change_block(moves->get_block());
+    if (moves->pop())
+    {
+        db = moves->get_db();
+        change_block(moves->get_block());
+        return true;
+    }
+
+    return false;
 }
 
 void Player::take_coin() 
@@ -95,7 +106,7 @@ void Player::take_coin()
     coins->insert(block->get_x(), block->get_y(), 'C');
 
     // remove coin at that point from list of coins in maze
-    maze->coins->remove(block->get_x(), block->get_y());
+    maze->get_coins()->remove(block->get_x(), block->get_y());
 
     // additional undo move for each coin taken 
     db->set_undoes(db->get_undoes() + 1);
@@ -155,19 +166,19 @@ void Player::change_block(Block *next)
     y_coordinate = block->get_y();
 
     // check if key reached
-    Point k = maze->get_key();
+    Point k = *(maze->get_key());
     if ((x_coordinate == k.get_x()) && (y_coordinate == k.get_y()))
         db->set_key(true);
 
     // check if door reached
-    Point d = maze->get_door();
+    Point d = *(maze->get_door());
     if ((x_coordinate == d.get_x()) && (y_coordinate == d.get_y()) && db->get_key())
         win = true;
 
     // check if key or door reached
     int distance;
     if (db->get_key() == false)
-        distance = calculate_distance(maze->get_key());
+        distance = calculate_distance(*(maze->get_key()));
         db->set_sense(distance);
 
     db->set_moves(db->get_moves() - 1);

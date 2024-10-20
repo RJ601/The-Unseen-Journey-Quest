@@ -37,7 +37,6 @@ public:
     Point* get_door() const;
 
     void insert(int x, int y, char obj = '-');
-    void remove(int x, int y); // remove a block at a particular point
 
     // display maze
     void display();

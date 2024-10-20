@@ -8,7 +8,7 @@ Block::Block()
     size = 10;
     character = '-';
 }
-Block::Block(int x, int y, Block *u = NULL, Block *d = NULL, Block *l = NULL, Block *r = NULL, char obj = '-')
+Block::Block(int x, int y, char obj, Block *u, Block *d, Block *l, Block *r)
 {
     x_coordinate = x;
     y_coordinate = y;
@@ -73,8 +73,10 @@ char Block::get_char() const
 void Block::display_block()
 {
     // if door or key, keep it hidden
+
     if ((character == 'K') || (character == 'D'))
-        mvprintw(x_coordinate, y_coordinate, "%c", '-');
+        mvprintw(y_coordinate, x_coordinate, "%c", '-');
     else
-        mvprintw(x_coordinate, y_coordinate, "%c", character);
+        mvprintw(y_coordinate, x_coordinate, "%c", character);
+
 }
