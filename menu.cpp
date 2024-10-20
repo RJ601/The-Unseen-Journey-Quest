@@ -40,6 +40,7 @@ char Menu::select_level()
             clear();
             mvprintw(0, 0, "Invalid");
             refresh();
+            getch();
             return 'I';
     }
 }

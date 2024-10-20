@@ -65,8 +65,12 @@ int main()
             } 
             delete maze;
             delete player;
+            clear();
             maze = new Maze(mode);
             player = new Player(maze, mode);
+            mvprintw(0, 0, "Maze created");
+            refresh();
+            getch();
             break;
         default:
             clear();

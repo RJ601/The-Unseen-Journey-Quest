@@ -36,9 +36,12 @@ Player::Player(Maze *m, char mode)
 
 Player::~Player()
 {
-    delete db;
-    delete moves;
-    delete coins;
+    if (db)
+        delete db;
+    if (moves)
+        delete moves;
+    if (coins)
+        delete coins;
 }
 
 bool Player::get_win() const
@@ -108,7 +111,6 @@ bool Player::undo_move()
     if (db->get_undoes() == 0)
         return false;
 
-    moves->display();
 
     // through pop, update block of player and update the dashboard
     if (moves->pop())

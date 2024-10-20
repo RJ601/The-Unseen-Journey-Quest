@@ -139,6 +139,11 @@ Maze::Maze(char m)
             x += x_gap;
         }
     }
+
+    clear();
+    display();
+    refresh();
+    getch();
 }
 
 Maze::~Maze()
@@ -147,22 +152,32 @@ Maze::~Maze()
     {
         Block *first = head->get_down(); // first block of next row
 
-        for (Block* ptr = head; ptr != NULL; ptr = head)
+        for (Block* ptr = head; ptr != NULL; )
         {
-            if (head->get_right() != NULL)
-                head = head->get_right();
+            Block *temp = ptr;
+            if (ptr->get_right() != NULL)
+            {
+                ptr = ptr->get_right();
+            }
             else
-                head = first;
-                first = head->get_down();
+            {
+                ptr = first;
+                if (first != NULL)
+                    first = first->get_down();
+            }
 
-            delete ptr;
+            delete temp;
         }
     }
 
-    delete coins;
-    delete bombs;
-    delete key;
-    delete door;
+    if (coins != NULL)
+        delete coins;
+    if (bombs != NULL)
+        delete bombs;
+    if (key != NULL)
+        delete key;
+    if (door != NULL)
+        delete door;
 }
 
 void Maze::set_head(Block *b) 
