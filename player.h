@@ -36,6 +36,7 @@ public:
     void display_dashboard();
     void display(); // when player wins
     void change_block(Block* next); // returns true if player alive after changing position
+    void change_moves();
 };
 
 #endif

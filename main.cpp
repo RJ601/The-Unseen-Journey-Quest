@@ -33,12 +33,6 @@ int main()
     getch();
     Player *player = new Player(maze, mode);
 
-    // testing
-    clear();
-    mvprintw(0,0, "Objects created");
-    refresh();
-    getch();
-
 
     bool lose = false, win = false;
 
@@ -84,28 +78,46 @@ int main()
             return 0;
     }
 
+    keypad(stdscr, TRUE); // Enable special keys
+    cbreak();             // Disable line buffering, pass input to program immediately
+    noecho();             // Do not display characters when typed
+
+    bool undo;
+
     while ((lose == false) && (win == false))
     {
         // Clear the screen
-        clear();
-
-        // once resume or restart selected from menu, display maze
-        mvprintw(0, 0, "Maze Printing...");
-        refresh();
-        getch();
         clear();
 
         player->display_dashboard();
 
         maze->display();
         refresh();
-        getch();
 
-        // Refresh the screen to show changes
-        refresh();
+        int input = getch(); // Wait for user to press any key
+        switch (input)
+        {
+            case KEY_UP:
+                player->move_up();
+                break;
+            case KEY_DOWN:
+                player->move_down();
+                break;
+            case KEY_LEFT:
+                player->move_left();
+                break;
+            case KEY_RIGHT:
+                player->move_right();
+                break;
+            case ' ':
+                undo = player->undo_move();
+                break;
+            default:
+                break;
+        }
 
-        // Wait for user input
-        getch(); // Wait for user to press any key
+        win = player->get_win();
+        lose = player->get_lose();
     }
 
     clear();

@@ -73,7 +73,6 @@
     // display list - name of object and x and y coordinates
     void Objects::display(int x, int y)
     {
-        clear();
         mvprintw(x, y, "Coins Collected:");
 
         x += 30;
@@ -82,7 +81,6 @@
             //cout<<ptr->get_x()<<endl;
             mvprintw(y, x, "(%i, %i)", ptr->get_x(), ptr->get_y());
             refresh();
-            getch();
             x += 10;
         }
     }

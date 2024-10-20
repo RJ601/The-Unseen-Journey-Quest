@@ -15,6 +15,8 @@ Stack::~Stack()
         for (Node *ptr = head; ptr != NULL; ptr = head)
         {
             head = head->next;
+            delete ptr->block;
+            delete ptr->db;
             delete ptr;
         }
         tail = NULL;
@@ -27,16 +29,24 @@ void Stack::push(Dashboard *d, Block *b)
     // if stack full, remove the previous most move 
     if (size == capacity)
     {
+        cout<<"capacity: "<<capacity<<endl;
         Node* temp = tail;
         tail = tail->prev;
+        delete temp->db;
         delete temp;
         size--;
     }
 
-    // create and setup new node
+    // create and setup new node 
     Node *newNode = new Node;
     newNode->block = b;
-    newNode->db = d;
+
+    // deep copy so that changes in main dashboard not reflected in dashboards from previous states
+    newNode->db = new Dashboard(d->get_distance(), d->get_x(), d->get_y(), d->get_mode());
+    newNode->db->set_key(d->get_key());
+    newNode->db->set_moves(d->get_moves());
+    newNode->db->set_score(d->get_score());
+    newNode->db->set_undoes(d->get_undoes());
 
     // stack is empty
     if (head == NULL)
@@ -50,7 +60,7 @@ void Stack::push(Dashboard *d, Block *b)
     // stack not empty
     else
     {
-        newNode->next = head->next;
+        newNode->next = head;
         head->prev = newNode;
         head = newNode;
     }
@@ -61,15 +71,22 @@ void Stack::push(Dashboard *d, Block *b)
 bool Stack::pop()
 {
     // check if stack empty
-    if (size == 0)
+    if (size == 1) 
     {
+        cout<<"Stack Empty"<<endl;
         return false;
     }
 
     // remove the last added node/move
     Node *temp = head;
     head = head->next;
-    head->prev = NULL;
+
+    if (head != NULL)
+        head->prev = NULL;
+    else
+        cout<<"HEAD NULL"<<endl;
+
+    delete temp->db;
     delete temp;
     size--;
     return true;
@@ -93,4 +110,15 @@ Dashboard* Stack::get_db() const
 Block* Stack::get_block() const
 {
     return head->block; // block from last added move
+}
+
+void Stack::display()
+{
+    for (Node *ptr = head; ptr != NULL; ptr = ptr->next)
+    {
+        clear();
+        ptr->db->display();
+        refresh();
+        getch();
+    }
 }

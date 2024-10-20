@@ -25,6 +25,7 @@ public:
     int get_key() const;
     int get_undoes() const;
     char get_mode() const;
+    int get_distance() const;
 
     void set_moves(int d);
     void set_score(int s);

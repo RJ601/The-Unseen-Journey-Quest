@@ -53,6 +53,10 @@ char Dashboard::get_mode() const
 {
     return mode;
 }
+int Dashboard::get_distance() const
+{
+    return distance;
+}
 
 void Dashboard::set_moves(int m)
 {

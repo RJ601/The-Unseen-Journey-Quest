@@ -83,9 +83,9 @@ Maze::Maze(char m)
     y = 10;
     for (int count = 0; count < (size*size); count++)
     {
-        cout<<"X: "<<x<<" Y: "<<y<<endl;
+        // cout<<"X: "<<x<<" Y: "<<y<<endl;
 
-        //coins->display(0, 0);
+        // coins->display(0, 0);
 
         // player at first block
         if ((x == 0) && (y == 50))
@@ -96,36 +96,36 @@ Maze::Maze(char m)
         // insert blocks - check for coins
         if (coins->check(x, y)) // create a function in objects to check if a coin exists at the provided coordinates
         {
-            cout<<"Coin Check"<<endl;
+            // cout<<"Coin Check"<<endl;
             insert(x, y, 'C');
-            cout<<"Insertion of coin completed"<<endl;
+            // cout<<"Insertion of coin completed"<<endl;
         }
 
         // insert blocks - check for bombs
         else if (bombs->check(x, y))
         {
-            cout<<"Bomb Check"<<endl;
+            // cout<<"Bomb Check"<<endl;
             insert(x, y, 'B');
-            cout<<"Insertion of bomb completed"<<endl;
+            // cout<<"Insertion of bomb completed"<<endl;
         }
 
         // insert blocks - check key and door
         else if ((x == key->get_x()) && (y == key->get_y()))
         {
             insert(x, y, 'K');
-            cout<<"Insertion of key completed"<<endl;
+            // cout<<"Insertion of key completed"<<endl;
         }
 
         else if ((x == door->get_x()) && (y == door->get_y()))
         {
             insert(x, y, 'D');
-            cout<<"Insertion of door completed"<<endl;
+            // cout<<"Insertion of door completed"<<endl;
         }
 
         else 
         {
             insert(x, y, '-');
-            cout<<"Insertion completed"<<endl;
+            // cout<<"Insertion completed"<<endl;
         }
 
         // iteration - how x and y coordinates change with count
@@ -239,7 +239,7 @@ void Maze::insert(int x, int y, char obj)
         Block *first = head; // for keeping first column of each row to get to next row's first column in O(1)
         
         int count = 0;
-        for (Block *ptr = head; ptr != NULL; count++)
+        for (Block *ptr = head; ptr != NULL; )
         {
             // if last block in row reached but row's end not reached - insert at right
             if ((ptr->get_right() == NULL) && (count < (size-1)))
@@ -253,7 +253,7 @@ void Maze::insert(int x, int y, char obj)
                     block->set_down(ptr->get_up()->get_right()->get_down());
                 }
 
-                block->set_right(ptr->get_right());
+                block->set_right(ptr->get_right()); // NULL
 
                 // linking
                 ptr->set_right(block);
@@ -272,7 +272,7 @@ void Maze::insert(int x, int y, char obj)
                 {
                     // insert at first column
                     block->set_up(first);
-                    block->set_down(first->get_down());
+                    block->set_down(first->get_down()); // NULL
                     first->set_down(block);
 
                     // once inserted, break
@@ -289,6 +289,7 @@ void Maze::insert(int x, int y, char obj)
             else
             {
                 ptr = ptr->get_right();
+                count++;
             }
         }
 

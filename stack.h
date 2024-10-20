@@ -42,6 +42,9 @@ public:
     // get contents at top of stack
     Dashboard* get_db() const;
     Block* get_block() const;
+
+    // debugging
+    void display();
 };
 
 #endif
